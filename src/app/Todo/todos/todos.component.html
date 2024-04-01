@@ -1,0 +1,63 @@
+<nav >
+    <div class="p-3 mb-2 bg-primary text-white d-flex justify-content-evenly">
+      <h1>Todo List</h1>
+      <div class="mt-2"><Button class="p-2 btn btn-light fw-bold" (click)="clickAddEmployee()"  data-bs-toggle="modal" data-bs-target="#exampleModal">Add Todo</Button></div>
+    </div>
+ </nav>
+ 
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5 " id="exampleModalLabel">Add Your Todo</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+          <form [formGroup]="userForm">
+            <label for="formGroupExampleInput" class="form-label fw-bold">Task Name</label>
+           <input type="text" class="form-control" id="formGroupExampleInput" formControlName="todo" >
+           <div class="text-danger" *ngIf="userForm.controls['todo'].invalid && (userForm.controls['todo'].touched || userForm.controls['todo'].dirty)">
+               <span *ngIf="userForm.controls['todo'].errors?.['required']">This is required</span>
+           </div>
+            <label for="formGroupExampleInput" class="form-label fw-bold">User ID</label>
+           <input type="text" class="form-control" id="formGroupExampleInput" formControlName="userId" >
+           <div class="text-danger" *ngIf="userForm.controls['userId'].invalid && (userForm.controls['userId'].touched || userForm.controls['userId'].dirty)">
+               <span *ngIf="userForm.controls['userId'].errors?.['required']">This is required</span>
+           </div>
+           <label for="formGroupExampleInput" class="form-label fw-bold">Completed <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="completed"></label>
+           
+          </form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+         <button type="button" *ngIf="showAdd" (click)="submitForm()" class="btn btn-primary">Add</button>
+         <button type="button" *ngIf="showUpdate" (click)="updateTodo()" class="btn btn-primary">Update</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Task</th>
+           <th scope="col">UserID</th>
+            <th scope="col">Completed</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of todos">
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.todo}}</td>
+            <td>{{item.userId}}</td> 
+            <td><input type="checkbox" [checked]="item.completed"></td>
+            <td>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onEdit(item)"  class="btn btn-primary me-1">Edit</button>
+                <button type="button" (click)="deleteTodo(item.id)"  class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+ </div>
