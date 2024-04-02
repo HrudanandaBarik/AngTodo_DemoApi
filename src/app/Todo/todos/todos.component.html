@@ -31,7 +31,7 @@
        <div class="modal-footer">
          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
          <button type="button" *ngIf="showAdd" (click)="submitForm()" class="btn btn-primary">Add</button>
-         <button type="button" *ngIf="showUpdate" (click)="updateTodo()" class="btn btn-primary">Update</button>
+         <button type="button" *ngIf="showUpdate" (click)="updateTodo()" data-bs-dismiss="modal" class="btn btn-primary">Update</button>
        </div>
      </div>
    </div>

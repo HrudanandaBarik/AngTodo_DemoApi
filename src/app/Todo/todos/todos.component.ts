@@ -85,6 +85,13 @@ export class TodosComponent implements OnInit{
     this.service.updateTodo(id, updatedData).subscribe(data => {
       alert("Todo Updated");
       console.log(data);
+      const index = this.todos.findIndex((item: any) => item.id === id);
+      
+      // Update the todo item in the todos array
+      if (index !== -1) {
+        this.todos[index] = { ...this.todos[index], ...updatedData };
+      }
+      
     });
   
   }
